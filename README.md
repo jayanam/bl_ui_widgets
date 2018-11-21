@@ -1,2 +1,2 @@
-# drag_panel
-Dragable panel for Blender 2.8
+# Drag Panel
+Dragable panel addon for Blender 2.8
