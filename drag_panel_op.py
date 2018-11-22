@@ -18,7 +18,7 @@ class DP_OT_draw_operator(Operator):
         self.draw_handle = None
         self.draw_event  = None
         self.panel = Drag_Panel(20, 20, 300, 100)
-        self.panel.set_color((1.0, 0.2, 0.2, 1.0))
+        self.panel.set_color((1.0, 0.2, 0.2, 0.5))
 
     def invoke(self, context, event):
         args = (self, context)
@@ -76,8 +76,6 @@ class DP_OT_draw_operator(Operator):
         self.unregister_handlers(context)
         return {"FINISHED"}
 		
-	    # Draw handler to paint onto the screen
+	# Draw handler to paint onto the screen
     def draw_callback_px(self, context, args):
-        self.panel.draw()
-        
-        
+        self.panel.draw()     

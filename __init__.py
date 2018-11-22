@@ -2,7 +2,7 @@ bl_info = {
     "name": "Drag Panel",
     "description": "Dragable Panel addon",
     "author": "Jayanam",
-    "version": (0, 1, 0, 1),
+    "version": (0, 1, 0, 2),
     "blender": (2, 80, 0),
     "location": "View3D",
     "category": "Object"}

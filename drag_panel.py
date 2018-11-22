@@ -1,4 +1,5 @@
 import gpu
+import bgl
 
 from gpu_extras.batch import batch_for_shader
 
@@ -12,17 +13,19 @@ class Drag_Panel:
         self.drag_offset_x = 0
         self.drag_offset_y = 0
         self.is_drag = False
-        self.color = (0.2, 0.9, 0.9, 0.1)
+        self.color = (1.0, 1.0, 1.0, 1.0)
         self.update(self.x, self.y)
         
-    def set_color(color):
+    def set_color(self, color):
         self.color = color
     
     def draw(self):
         self.shader.bind()
         self.shader.uniform_float("color", self.color)
         
+        bgl.glEnable(bgl.GL_BLEND)
         self.batch_panel.draw(self.shader) 
+        bgl.glDisable(bgl.GL_BLEND)
     
     def update(self, x, y):
         
