@@ -2,12 +2,13 @@ import bpy
 
 from bpy.types import Operator
  
-from . drag_panel import *
+from . bl_ui_button import *
+from . bl_ui_drag_panel import *
     
 class DP_OT_draw_operator(Operator):
     bl_idname = "object.dp_ot_draw_operator"
-    bl_label = "Drag Panel"
-    bl_description = "Drag Panel example" 
+    bl_label = "bl ui widgets operator"
+    bl_description = "Operator for bl ui widgets" 
     bl_options = {'REGISTER'}
     	
     @classmethod
@@ -17,9 +18,33 @@ class DP_OT_draw_operator(Operator):
     def __init__(self):
         self.draw_handle = None
         self.draw_event  = None
-        self.panel = Drag_Panel(20, 20, 300, 100)
-        self.panel.set_color((1.0, 0.2, 0.2, 0.5))
-
+        
+        self.button1 = BL_UI_Button(20, 20, 120, 30)
+        self.button1.set_bg_color((1.0, 0.2, 0.2, 0.8))
+        self.button1.set_mouse_down(self.button1_press)
+        self.button1.set_text("Scale")
+        
+        self.button2 = BL_UI_Button(160, 20, 120, 30)
+        self.button2.set_bg_color((0.0, 0.2, 1.0, 0.8))
+        self.button2.set_mouse_down(self.button2_press)
+        self.button2.set_text("Rotate")
+        
+        self.panel = BL_UI_Drag_Panel(300,300,300,100)
+        self.panel.set_bg_color((0.5, 1.0, 1.0, 0.6))
+    
+    # Button press handlers    
+    def button1_press(self, widget):
+        print("Button '{0}' is pressed".format(widget.text))
+        active_obj = bpy.context.view_layer.objects.active
+        if active_obj is not None:
+            active_obj.scale = (1, 1, 2.0)
+        
+    def button2_press(self, widget):
+        print("Button '{0}' is pressed".format(widget.text))
+        active_obj = bpy.context.view_layer.objects.active
+        if active_obj is not None:
+            active_obj.rotation_euler = (0, 30, 90)
+        
     def invoke(self, context, event):
         args = (self, context)
         
@@ -47,15 +72,14 @@ class DP_OT_draw_operator(Operator):
         
         self.draw_handle = None
         self.draw_event  = None
-     
-           
+          
     def modal(self, context, event):
         if context.area:
             context.area.tag_redraw()
-                
-        if context.area.type == 'VIEW_3D':
-            if self.panel.handle_event(event):
-                return {'RUNNING_MODAL'}   
+        
+        # TODO: Refactor this  
+        if self.button1.handle_event(event) or self.button2.handle_event(event) or self.panel.handle_event(event):
+            return {'RUNNING_MODAL'}   
         
         if event.type in {"ESC"}:
             context.window_manager.DP_started = False
@@ -78,4 +102,6 @@ class DP_OT_draw_operator(Operator):
 		
 	# Draw handler to paint onto the screen
     def draw_callback_px(self, context, args):
-        self.panel.draw()     
+        self.button1.draw()
+        self.button2.draw()  
+        self.panel.draw() 

@@ -1,8 +1,8 @@
 bl_info = {
-    "name": "Drag Panel",
-    "description": "Dragable Panel addon",
+    "name": "BL UI Widgets",
+    "description": "UI Widgets to draw in the 3D view",
     "author": "Jayanam",
-    "version": (0, 1, 0, 2),
+    "version": (0, 2, 0, 1),
     "blender": (2, 80, 0),
     "location": "View3D",
     "category": "Object"}
@@ -12,7 +12,7 @@ import bpy
 
 from bpy.props import *
 
-from . drag_panel_op    import DP_OT_draw_operator
+from . drag_panel_op import DP_OT_draw_operator
 
 wm = bpy.types.WindowManager
 wm.DP_started = bpy.props.BoolProperty(default=False)
