@@ -85,8 +85,7 @@ class DP_OT_draw_operator(Operator):
         return {"FINISHED"}
 		
 	# Draw handler to paint onto the screen
-    def draw_callback_px(self, context, args):
-        print(args)
+    def draw_callback_px(self, op, context):
         self.button1.draw()
         self.button2.draw()  
         self.panel.draw() 

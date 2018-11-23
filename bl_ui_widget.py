@@ -10,7 +10,7 @@ class BL_UI_Widget:
         self.y = y
         self.width = width
         self.height = height
-        self.bg_color = (1.0, 1.0, 1.0, 1.0)
+        self.bg_color = (0.8, 0.8, 0.8, 1.0)
         self.update(self.x, self.y)
         
     def set_bg_color(self, color):
@@ -48,7 +48,7 @@ class BL_UI_Widget:
         
         elif(event.type == 'MOUSEMOVE'):
             self.mouse_move(event.mouse_region_x, event.mouse_region_y)
-            return True
+            return False
                         
         return False                 
 
