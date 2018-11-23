@@ -47,18 +47,11 @@ class DP_OT_draw_operator(Operator):
         
     def invoke(self, context, event):
         args = (self, context)
-        
-        if(context.window_manager.DP_started is False):
-            context.window_manager.DP_started = True
-                
-            # Register draw callback
-            self.register_handlers(args, context)
-                       
-            context.window_manager.modal_handler_add(self)
-            return {"RUNNING_MODAL"}
-        else:
-            context.window_manager.DP_started = False
-            return {'CANCELLED'}
+                   
+        self.register_handlers(args, context)
+                   
+        context.window_manager.modal_handler_add(self)
+        return {"RUNNING_MODAL"}
     
     def register_handlers(self, args, context):
         self.draw_handle = bpy.types.SpaceView3D.draw_handler_add(self.draw_callback_px, (self, context), "WINDOW", "POST_PIXEL")
@@ -82,20 +75,11 @@ class DP_OT_draw_operator(Operator):
             return {'RUNNING_MODAL'}   
         
         if event.type in {"ESC"}:
-            context.window_manager.DP_started = False
-        
-        if not context.window_manager.DP_started:
             self.unregister_handlers(context)
             return {'CANCELLED'}
-               
+                    
         return {"PASS_THROUGH"}
-                            
-        
-    def cancel(self, context):
-        if context.window_manager.DP_started:
-            self.unregister_handlers(context)
-        return {'CANCELLED'}        
-        
+                                
     def finish(self):
         self.unregister_handlers(context)
         return {"FINISHED"}

@@ -14,9 +14,6 @@ from bpy.props import *
 
 from . drag_panel_op import DP_OT_draw_operator
 
-wm = bpy.types.WindowManager
-wm.DP_started = bpy.props.BoolProperty(default=False)
-
 addon_keymaps = []
 
 def register():

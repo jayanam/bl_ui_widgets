@@ -14,6 +14,7 @@ class BL_UI_Button(BL_UI_Widget):
         self.__state = 0
         super().__init__(x, y, width, height)
     
+    # Will be supported in the next version
     def set_text_color(self, color):
         self.text_color = color
     
