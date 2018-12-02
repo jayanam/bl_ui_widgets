@@ -11,10 +11,6 @@ class DP_OT_draw_operator(Operator):
     bl_description = "Operator for bl ui widgets" 
     bl_options = {'REGISTER'}
     	
-    @classmethod
-    def poll(cls, context):
-        return True
-    
     def __init__(self):
         self.draw_handle = None
         self.draw_event  = None
@@ -31,6 +27,8 @@ class DP_OT_draw_operator(Operator):
         
         self.panel = BL_UI_Drag_Panel(300,300,300,100)
         self.panel.set_bg_color((0.5, 1.0, 1.0, 0.6))
+        
+        self.widgets = (self.button1, self.button2, self.panel)
     
     # Button press handlers    
     def button1_press(self, widget):
@@ -65,13 +63,17 @@ class DP_OT_draw_operator(Operator):
         
         self.draw_handle = None
         self.draw_event  = None
+        
+    def handle_widget_events(self, event):
+        for widget in self.widgets:
+            if widget.handle_event(event):
+                return True
           
     def modal(self, context, event):
         if context.area:
             context.area.tag_redraw()
         
-        # TODO: Refactor this  
-        if self.button1.handle_event(event) or self.button2.handle_event(event) or self.panel.handle_event(event):
+        if self.handle_widget_events(event):
             return {'RUNNING_MODAL'}   
         
         if event.type in {"ESC"}:
@@ -86,6 +88,5 @@ class DP_OT_draw_operator(Operator):
 		
 	# Draw handler to paint onto the screen
     def draw_callback_px(self, op, context):
-        self.button1.draw()
-        self.button2.draw()  
-        self.panel.draw() 
+        for widget in self.widgets:
+            widget.draw()
