@@ -20,12 +20,7 @@ class BL_UI_Drag_Panel(BL_UI_Widget):
     def update(self, x, y):
         super().update(x - self.drag_offset_x, y - self.drag_offset_y)
         
-
     def mouse_down(self, x, y):
-        
-        print("{0} x {1}".format(x,y))
-        print("Screen {0} x {1}".format(self.x_screen,self.y_screen))
-        
         if self.is_in_rect(x,y):
             print("In Rect!")
             self.is_drag = True

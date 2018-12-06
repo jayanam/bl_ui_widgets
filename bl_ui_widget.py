@@ -57,8 +57,6 @@ class BL_UI_Widget:
 
 
     def is_in_rect(self, x, y):
-        
-
         if (
             (self.x_screen <= x <= (self.x_screen + self.width)) and 
             (self.y_screen <= y <= (self.y_screen + self.height))

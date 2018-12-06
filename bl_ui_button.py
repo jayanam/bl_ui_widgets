@@ -66,8 +66,7 @@ class BL_UI_Button(BL_UI_Widget):
     def set_mouse_down(self, mouse_down_func):
         self.mouse_down_func = mouse_down_func   
                  
-    def mouse_down(self, x, y):   
-        print("Down")    
+    def mouse_down(self, x, y):    
         if self.is_in_rect(x,y):
             self.__state = 1
             if(self.mouse_down_func is not None):
