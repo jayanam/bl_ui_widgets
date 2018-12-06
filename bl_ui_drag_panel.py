@@ -15,11 +15,7 @@ class BL_UI_Drag_Panel(BL_UI_Widget):
         
     def layout_widgets(self):
         for widget in self.widgets:
-            widget.update(self.x_screen + widget.x, self.y_screen + widget.y)
-            print("******* widget: ", widget.x_screen)
-            print("******* Panel: ", self.x_screen)
-            
-        
+            widget.update(self.x_screen + widget.x, self.y_screen + widget.y)   
     
     def update(self, x, y):
         super().update(x - self.drag_offset_x, y - self.drag_offset_y)
