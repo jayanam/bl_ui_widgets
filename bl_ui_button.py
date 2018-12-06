@@ -12,6 +12,7 @@ class BL_UI_Button(BL_UI_Widget):
         self.text = "Button"
         self.text_size = 16
         self.__state = 0
+        self.__textpos = [x, y]
         super().__init__(x, y, width, height)
     
     # Will be supported in the next version
@@ -54,17 +55,19 @@ class BL_UI_Button(BL_UI_Widget):
         blf.size(0, self.text_size, 72)
         size = blf.dimensions(0, self.text)
               
-        blf.position(0, self.x + (self.width - size[0]) / 2.0, self.y + (self.height - size[1]) / 2.0, 0)
+        blf.position(0, self.__textpos[0] + (self.width - size[0]) / 2.0, self.__textpos[1] + (self.height - size[1]) / 2.0, 0)
             
         blf.draw(0, self.text)
         
     def update(self, x, y):        
         super().update(x, y)
+        self.__textpos = [x, y]
         
     def set_mouse_down(self, mouse_down_func):
         self.mouse_down_func = mouse_down_func   
                  
-    def mouse_down(self, x, y):       
+    def mouse_down(self, x, y):   
+        print("Down")    
         if self.is_in_rect(x,y):
             self.__state = 1
             if(self.mouse_down_func is not None):

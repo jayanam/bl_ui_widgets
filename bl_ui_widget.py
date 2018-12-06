@@ -11,7 +11,7 @@ class BL_UI_Widget:
         self.width = width
         self.height = height
         self.bg_color = (0.8, 0.8, 0.8, 1.0)
-        self.update(self.x, self.y)
+        self.update(x, y)
         
     def set_bg_color(self, color):
         self.bg_color = color
@@ -26,14 +26,17 @@ class BL_UI_Widget:
     
     def update(self, x, y):
         
+        self.x_screen = x
+        self.y_screen = y
+                
         indices = ((0, 1, 2), (0, 2, 3))
 
         # bottom left, top left, top right, bottom right
         vertices = (
-                    (self.x, self.y), 
-                    (self.x, self.y+self.height), 
-                    (self.x + self.width, self.y + self.height),
-                    (self.x + self.width, self.y))
+                    (self.x_screen, self.y_screen), 
+                    (self.x_screen, self.y_screen + self.height), 
+                    (self.x_screen + self.width, self.y_screen + self.height),
+                    (self.x_screen + self.width, self.y_screen))
                     
         self.shader = gpu.shader.from_builtin('2D_UNIFORM_COLOR')
         self.batch_panel = batch_for_shader(self.shader, 'TRIS', {"pos" : vertices}, indices=indices)
@@ -55,9 +58,10 @@ class BL_UI_Widget:
 
     def is_in_rect(self, x, y):
         
+
         if (
-            (self.x <= x <= (self.x + self.width)) and 
-            (self.y <= y <= (self.y + self.height))
+            (self.x_screen <= x <= (self.x_screen + self.width)) and 
+            (self.y_screen <= y <= (self.y_screen + self.height))
             ):
             return True
            
