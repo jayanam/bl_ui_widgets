@@ -8,6 +8,7 @@ class BL_UI_Drag_Panel(BL_UI_Widget):
         self.is_drag = False
         self.widgets = []
         super().__init__(x,y, width, height)
+        self.update(x, y)
         
     def add_widgets(self, widgets):
         self.widgets = widgets
@@ -19,10 +20,18 @@ class BL_UI_Drag_Panel(BL_UI_Widget):
     
     def update(self, x, y):
         super().update(x - self.drag_offset_x, y - self.drag_offset_y)
-        
+    
+    def child_widget_focused(self, x, y):
+        for widget in self.widgets:
+            if widget.is_in_rect(x, y):
+                return True       
+        return False
+    
     def mouse_down(self, x, y):
+        if self.child_widget_focused(x, y):
+            return False
+        
         if self.is_in_rect(x,y):
-            print("In Rect!")
             self.is_drag = True
             self.drag_offset_x = x - self.x_screen
             self.drag_offset_y = y - self.y_screen

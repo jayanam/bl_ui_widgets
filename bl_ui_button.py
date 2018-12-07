@@ -14,6 +14,7 @@ class BL_UI_Button(BL_UI_Widget):
         self.__state = 0
         self.__textpos = [x, y]
         super().__init__(x, y, width, height)
+        self.update(x, y)
     
     # Will be supported in the next version
     def set_text_color(self, color):
@@ -69,8 +70,10 @@ class BL_UI_Button(BL_UI_Widget):
     def mouse_down(self, x, y):    
         if self.is_in_rect(x,y):
             self.__state = 1
-            if(self.mouse_down_func is not None):
-                self.mouse_down_func(self)            
+            try:
+                self.mouse_down_func(self)
+            except:
+                pass
                 
             return True
         
