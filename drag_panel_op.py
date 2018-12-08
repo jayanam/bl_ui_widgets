@@ -34,10 +34,10 @@ class DP_OT_draw_operator(BL_UI_OT_draw_operator):
         self.slider = BL_UI_Slider(20, 20, 260, 30)
         self.slider.set_color((0.2, 0.8, 0.8, 0.8))
         self.slider.set_hover_color((0.2, 0.9, 0.9, 1.0))
-        self.slider.set_min(1.0)
+        self.slider.set_min(0.0)
         self.slider.set_max(5.0)
         self.slider.set_value(2.0)
-        self.slider.set_decimals(2)
+        self.slider.set_decimals(1)
         self.slider.set_value_change(self.on_slider_value_change)
 
         self.widgets = [self.panel, self.button1, self.button2, self.slider]

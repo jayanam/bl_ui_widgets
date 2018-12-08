@@ -14,7 +14,6 @@ class BL_UI_Slider(BL_UI_Widget):
 
         self.__min = 0
         self.__max = 100
-        self.tickcount = 10
         
         self.__text_size = 14
         self.__decimals = 2
@@ -178,7 +177,7 @@ class BL_UI_Slider(BL_UI_Widget):
         return False
 
     def __value_to_pos(self, value):
-        return self.width * value / (self.__max)
+        return self.width * (value - self.__min) / (self.__max - self.__min)
 
     def __pos_to_value(self, pos):
         return self.__min + round(((self.__max - self.__min) * self.__slider_pos / self.width), self.__decimals)
