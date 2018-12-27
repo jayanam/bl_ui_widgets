@@ -14,6 +14,9 @@ class BL_UI_Slider(BL_UI_Widget):
 
         self.__min = 0
         self.__max = 100
+
+        self.x_screen = x
+        self.y_screen = y
         
         self.__text_size = 14
         self.__decimals = 2
@@ -23,8 +26,8 @@ class BL_UI_Slider(BL_UI_Widget):
         self.__slider_value = round(0, self.__decimals)
         self.__slider_width = 5
         self.__slider_height = 13
-        self.__slider_offset_y = 15
-        self.update(x, y)
+        self.__slider_offset_y = 3
+        # self.update(x, y)
 
     
     # Will be supported in the next version
@@ -53,6 +56,9 @@ class BL_UI_Slider(BL_UI_Widget):
         self.__decimals = decimals
                 
     def draw(self):
+
+        area_height = self.get_area_height()
+
         self.shader.bind()
         
         color = self.color
@@ -85,7 +91,7 @@ class BL_UI_Slider(BL_UI_Widget):
         size = blf.dimensions(0, sValue)
                       
         blf.position(0, self.__slider_pos + 1 + self.x_screen - size[0] / 2.0, 
-                        self.y_screen + self.__slider_height + self.__slider_offset_y + 4, 0)
+                        area_height - self.y_screen + self.__slider_offset_y, 0)
             
         blf.draw(0, sValue)
 
@@ -95,7 +101,7 @@ class BL_UI_Slider(BL_UI_Widget):
         size = blf.dimensions(0, sMin)
                       
         blf.position(0, self.x_screen - size[0] / 2.0, 
-                        self.y_screen, 0)
+                        area_height - self.height - self.y_screen, 0)
         blf.draw(0, sMin)
 
         sMax = sFormat.format(self.__max)
@@ -103,7 +109,7 @@ class BL_UI_Slider(BL_UI_Widget):
         size = blf.dimensions(0, sMax)
                       
         blf.position(0, self.x_screen + self.width - size[0] / 2.0, 
-                        self.y_screen, 0)
+                        area_height - self.height - self.y_screen, 0)
         blf.draw(0, sMax)
 
 
@@ -116,9 +122,11 @@ class BL_UI_Slider(BL_UI_Widget):
         #     3---- 4
 
         # batch for slider
+        area_height = self.get_area_height()
+
         h = self.__slider_height
         w = self.__slider_width
-        pos_y = self.y_screen + self.__slider_height + self.__slider_offset_y
+        pos_y = area_height - self.y_screen - self.height / 2.0 + self.__slider_height / 2.0 + self.__slider_offset_y
         pos_x = self.x_screen + self.__slider_pos
         
         indices = ((0, 1, 2), (1, 2, 3), (3, 2, 4))
@@ -135,7 +143,9 @@ class BL_UI_Slider(BL_UI_Widget):
         self.batch_slider = batch_for_shader(self.shader, 'TRIS', 
         {"pos" : vertices}, indices=indices)
         
-    def update(self, x, y):  
+    def update(self, x, y): 
+
+        area_height = self.get_area_height()
         
         # Min                      Max
         #  |---------V--------------|
@@ -146,7 +156,7 @@ class BL_UI_Slider(BL_UI_Widget):
         self.update_slider()
 
         # batch for background
-        pos_y = self.y_screen + 18
+        pos_y = area_height - self.y_screen - self.height / 2.0
         pos_x = self.x_screen
 
         indices = ((0, 1, 2), (0, 2, 3))
@@ -166,11 +176,13 @@ class BL_UI_Slider(BL_UI_Widget):
         self.value_change_func = value_change_func
     
     def is_in_rect(self, x, y):
+        area_height = self.get_area_height()
+        slider_y = area_height - self.y_screen - self.height / 2.0 + self.__slider_height / 2.0 + self.__slider_offset_y
+
         if (
             (self.x_screen + self.__slider_pos - self.__slider_width <= x <= 
             (self.x_screen + self.__slider_pos + self.__slider_width)) and 
-            (self.y_screen + self.__slider_offset_y <= y <= 
-            (self.y_screen + self.__slider_height + self.__slider_offset_y))
+            (slider_y >= y >= slider_y - self.__slider_height)
             ):
             return True
            
@@ -198,7 +210,8 @@ class BL_UI_Slider(BL_UI_Widget):
 
             self.__slider_pos = self.__value_to_pos(self.__slider_value)
 
-            self.update_slider()
+            if self.context is not None:
+                self.update_slider()
 
 
     def __set_slider_pos(self, x):

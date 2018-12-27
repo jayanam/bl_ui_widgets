@@ -18,8 +18,17 @@ class DP_OT_draw_operator(BL_UI_OT_draw_operator):
         
         super().__init__()
             
-        self.panel = BL_UI_Drag_Panel(300,300,300,130)
-        self.panel.set_bg_color((0.8, 0.8, 0.8, 0.3))
+        self.panel = BL_UI_Drag_Panel(100, 400, 300, 130)
+        self.panel.set_bg_color((0.8, 0.8, 0.8, 0.4))
+
+        self.slider = BL_UI_Slider(20, 20, 260, 30)
+        self.slider.set_color((0.2, 0.8, 0.8, 0.8))
+        self.slider.set_hover_color((0.2, 0.9, 0.9, 1.0))
+        self.slider.set_min(1.0)
+        self.slider.set_max(5.0)
+        self.slider.set_value(2.0)
+        self.slider.set_decimals(1)
+        self.slider.set_value_change(self.on_slider_value_change)
         
         self.button1 = BL_UI_Button(20, 80, 120, 30)
         self.button1.set_bg_color((0.2, 0.8, 0.8, 0.8))
@@ -31,17 +40,8 @@ class DP_OT_draw_operator(BL_UI_OT_draw_operator):
         self.button2.set_mouse_down(self.button2_press)
         self.button2.set_text("Rotate")
         
-        self.slider = BL_UI_Slider(20, 20, 260, 30)
-        self.slider.set_color((0.2, 0.8, 0.8, 0.8))
-        self.slider.set_hover_color((0.2, 0.9, 0.9, 1.0))
-        self.slider.set_min(1.0)
-        self.slider.set_max(5.0)
-        self.slider.set_value(2.0)
-        self.slider.set_decimals(1)
-        self.slider.set_value_change(self.on_slider_value_change)
-
-        self.widgets = [self.panel, self.button1, self.button2, self.slider]
-        
+    def on_invoke(self, context):
+        self.init_widgets(context, [self.panel, self.button1, self.button2, self.slider])
         self.panel.add_widgets([self.button1, self.button2, self.slider])
         
     def on_slider_value_change(self, slider, value):

@@ -5,6 +5,7 @@ import blf
 class BL_UI_Button(BL_UI_Widget):
     
     def __init__(self, x, y, width, height):
+        super().__init__(x, y, width, height)
         self.text_color        = (0.0, 0.0, 0.0, 1.0)
         self.hover_bg_color    = (0.5, 0.5, 0.5, 1.0)
         self.select_bg_color   = (0.7, 0.7, 0.7, 1.0)
@@ -13,9 +14,7 @@ class BL_UI_Button(BL_UI_Widget):
         self.text_size = 16
         self.__state = 0
         self.__textpos = [x, y]
-        super().__init__(x, y, width, height)
-        self.update(x, y)
-    
+
     # Will be supported in the next version
     def set_text_color(self, color):
         self.text_color = color
@@ -33,6 +32,9 @@ class BL_UI_Button(BL_UI_Widget):
         self.select_bg_color = color
         
     def draw(self):
+
+        area_height = self.get_area_height()
+
         self.shader.bind()
         
         color = self.bg_color
@@ -55,8 +57,9 @@ class BL_UI_Button(BL_UI_Widget):
         # Draw text
         blf.size(0, self.text_size, 72)
         size = blf.dimensions(0, self.text)
-              
-        blf.position(0, self.__textpos[0] + (self.width - size[0]) / 2.0, self.__textpos[1] + (self.height - size[1]) / 2.0, 0)
+    
+        textpos_y = area_height - self.__textpos[1] - (self.height + size[1]) / 2.0
+        blf.position(0, self.__textpos[0] + (self.width - size[0]) / 2.0, textpos_y + 1, 0)
             
         blf.draw(0, self.text)
         

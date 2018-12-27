@@ -11,10 +11,21 @@ class BL_UI_OT_draw_operator(Operator):
     def __init__(self):
         self.draw_handle = None
         self.draw_event  = None
-        
+                
         self.widgets = []
-        
+
+    def init_widgets(self, context, widgets):
+        self.widgets = widgets
+        for widget in self.widgets:
+            widget.init(context)
+
+    def on_invoke(self, context):
+        pass
+
     def invoke(self, context, event):
+
+        self.on_invoke(context)
+
         args = (self, context)
                    
         self.register_handlers(args, context)
