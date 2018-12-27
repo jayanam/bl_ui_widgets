@@ -47,8 +47,15 @@ class DP_OT_draw_operator(BL_UI_OT_draw_operator):
         self.button2.set_text("Rotate")
         
     def on_invoke(self, context):
-        self.init_widgets(context, [self.panel, self.label, self.button1, self.button2, self.slider])
-        self.panel.add_widgets([self.label, self.button1,  self.button2, self.slider])
+
+        # Add new widgets here (TODO: perhaps a better, more automated solution?)
+        widgets_panel = [self.label, self.button1, self.button2, self.slider]
+        widgets =       [self.panel]
+
+        widgets.extend(widgets_panel)
+
+        self.init_widgets(context, widgets )
+        self.panel.add_widgets(widgets_panel)
         
     def on_slider_value_change(self, slider, value):
         active_obj = bpy.context.view_layer.objects.active
