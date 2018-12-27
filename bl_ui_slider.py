@@ -6,7 +6,7 @@ class BL_UI_Slider(BL_UI_Widget):
     
     def __init__(self, x, y, width, height):
         super().__init__(x, y, width, height)
-        self.text_color        = (0.0, 0.0, 0.0, 1.0)
+        self.text_color        = (1.0, 1.0, 1.0, 1.0)
         self.color          = (0.5, 0.5, 0.7, 1.0)
         self.hover_color    = (0.5, 0.5, 0.8, 1.0)
         self.select_color   = (0.7, 0.7, 0.7, 1.0)
@@ -106,6 +106,9 @@ class BL_UI_Slider(BL_UI_Widget):
         sMax = sFormat.format(self.__max)
         
         size = blf.dimensions(0, sMax)
+
+        r, g, b, a = self.text_color
+        blf.color(0, r, g, b, a)
                       
         blf.position(0, self.x_screen + self.width - size[0] / 2.0, 
                         area_height - self.height - self.y_screen, 0)

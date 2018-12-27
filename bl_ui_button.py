@@ -6,7 +6,7 @@ class BL_UI_Button(BL_UI_Widget):
     
     def __init__(self, x, y, width, height):
         super().__init__(x, y, width, height)
-        self.text_color        = (0.0, 0.0, 0.0, 1.0)
+        self.text_color        = (1.0, 1.0, 1.0, 1.0)
         self.hover_bg_color    = (0.5, 0.5, 0.5, 1.0)
         self.select_bg_color   = (0.7, 0.7, 0.7, 1.0)
         
@@ -60,6 +60,9 @@ class BL_UI_Button(BL_UI_Widget):
     
         textpos_y = area_height - self.__textpos[1] - (self.height + size[1]) / 2.0
         blf.position(0, self.__textpos[0] + (self.width - size[0]) / 2.0, textpos_y + 1, 0)
+
+        r, g, b, a = self.text_color
+        blf.color(0, r, g, b, a)
             
         blf.draw(0, self.text)
         

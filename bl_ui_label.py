@@ -31,5 +31,9 @@ class BL_UI_Label(BL_UI_Widget):
     
         textpos_y = area_height - self.y_screen - self.height
         blf.position(0, self.x_screen, textpos_y, 0)
+
+        r, g, b, a = self.text_color
+
+        blf.color(0, r, g, b, a)
             
         blf.draw(0, self.text)

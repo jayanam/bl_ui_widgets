@@ -25,6 +25,7 @@ class DP_OT_draw_operator(BL_UI_OT_draw_operator):
         self.label = BL_UI_Label(20, 10, 40, 15)
         self.label.set_text("Size:")
         self.label.set_text_size(14)
+        self.label.set_text_color((0.2, 0.2, 1.0, 1.0))
 
         self.slider = BL_UI_Slider(20, 50, 260, 30)
         self.slider.set_color((0.2, 0.8, 0.8, 0.8))
@@ -47,7 +48,7 @@ class DP_OT_draw_operator(BL_UI_OT_draw_operator):
         
     def on_invoke(self, context):
         self.init_widgets(context, [self.panel, self.label, self.button1, self.button2, self.slider])
-        self.panel.add_widgets([self.label, self.button1, self.button2, self.slider])
+        self.panel.add_widgets([self.label, self.button1,  self.button2, self.slider])
         
     def on_slider_value_change(self, slider, value):
         active_obj = bpy.context.view_layer.objects.active
