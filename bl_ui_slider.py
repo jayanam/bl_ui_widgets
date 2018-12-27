@@ -27,7 +27,6 @@ class BL_UI_Slider(BL_UI_Widget):
         self.__slider_width = 5
         self.__slider_height = 13
         self.__slider_offset_y = 3
-        # self.update(x, y)
 
     
     # Will be supported in the next version
