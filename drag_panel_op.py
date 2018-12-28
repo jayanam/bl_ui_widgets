@@ -52,9 +52,9 @@ class DP_OT_draw_operator(BL_UI_OT_draw_operator):
         widgets_panel = [self.label, self.button1, self.button2, self.slider]
         widgets =       [self.panel]
 
-        widgets.extend(widgets_panel)
+        widgets += widgets_panel
 
-        self.init_widgets(context, widgets )
+        self.init_widgets(context, widgets)
         self.panel.add_widgets(widgets_panel)
         
     def on_slider_value_change(self, slider, value):
