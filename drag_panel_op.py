@@ -56,7 +56,12 @@ class DP_OT_draw_operator(BL_UI_OT_draw_operator):
         widgets += widgets_panel
 
         self.init_widgets(context, widgets)
+
         self.panel.add_widgets(widgets_panel)
+
+        # Open the panel at the mouse location
+        self.panel.set_location(event.mouse_x, context.area.height - event.mouse_y + 20)
+       
         
     def on_slider_value_change(self, slider, value):
         active_obj = bpy.context.view_layer.objects.active

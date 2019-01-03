@@ -14,6 +14,13 @@ class BL_UI_Widget:
         self.height = height
         self.bg_color = (0.8, 0.8, 0.8, 1.0)
         self.context = None
+
+    def set_location(self, x, y):
+        self.x = x
+        self.y = y
+        self.x_screen = x
+        self.y_screen = y
+        self.update(x,y)
                 
     def set_bg_color(self, color):
         self.bg_color = color
