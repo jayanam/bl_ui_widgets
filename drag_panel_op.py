@@ -45,8 +45,9 @@ class DP_OT_draw_operator(BL_UI_OT_draw_operator):
         self.button2.set_bg_color((0.2, 0.8, 0.8, 0.8))
         self.button2.set_mouse_down(self.button2_press)
         self.button2.set_text("Rotate")
-        
-    def on_invoke(self, context):
+
+
+    def on_invoke(self, context, event):
 
         # Add new widgets here (TODO: perhaps a better, more automated solution?)
         widgets_panel = [self.label, self.button1, self.button2, self.slider]

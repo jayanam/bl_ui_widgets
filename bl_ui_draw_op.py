@@ -19,12 +19,12 @@ class BL_UI_OT_draw_operator(Operator):
         for widget in self.widgets:
             widget.init(context)
 
-    def on_invoke(self, context):
+    def on_invoke(self, context, event):
         pass
 
     def invoke(self, context, event):
 
-        self.on_invoke(context)
+        self.on_invoke(context, event)
 
         args = (self, context)
                    
