@@ -42,12 +42,17 @@ class DP_OT_draw_operator(BL_UI_OT_draw_operator):
         self.button1.set_mouse_down(self.button1_press)
         self.button1.set_text("Scale")
         self.button1.set_image("//img/scale.png")
-        
+        self.button1.set_image_size((24,24))
+        self.button1.set_image_position((4,2))
+         
         self.button2 = BL_UI_Button(160, 100, 120, 30)
         self.button2.set_bg_color((0.2, 0.8, 0.8, 0.8))
         self.button2.set_hover_bg_color((0.2, 0.9, 0.9, 1.0))
         self.button2.set_mouse_down(self.button2_press)
         self.button2.set_text("Rotate")
+        self.button2.set_image("//img/rotate.png")
+        self.button2.set_image_size((24,24))
+        self.button2.set_image_position((4,2))
 
 
     def on_invoke(self, context, event):

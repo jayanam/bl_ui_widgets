@@ -38,11 +38,16 @@ class BL_UI_Button(BL_UI_Widget):
     def set_select_bg_color(self, color):
         self.__select_bg_color = color
 
+    def set_image_size(self, imgage_size):
+        self.__image_size = imgage_size
+
+    def set_image_position(self, image_position):
+        self.__image_position = image_position
+
     def set_image(self, rel_filepath):
         try:
             self.__image = bpy.data.images.load(rel_filepath, check_existing=True)   
-            if self.__image.gl_load():
-                raise Exception()
+            self.__image.gl_load()
         except:
             pass
         
@@ -52,18 +57,7 @@ class BL_UI_Button(BL_UI_Widget):
 
         self.shader.bind()
         
-        color = self.bg_color
-        text_color = self.__text_color
-        
-        # pressed
-        if self.__state == 1:
-            color = self.__select_bg_color
-
-        # hover
-        elif self.__state == 2:
-            color = self.__hover_bg_color
-            
-        self.shader.uniform_float("color", color)
+        self.set_colors()
         
         bgl.glEnable(bgl.GL_BLEND)
 
@@ -75,6 +69,20 @@ class BL_UI_Button(BL_UI_Widget):
 
         # Draw text
         self.draw_text(area_height)
+
+    def set_colors(self):
+        color = self.bg_color
+        text_color = self.__text_color
+
+        # pressed
+        if self.__state == 1:
+            color = self.__select_bg_color
+
+        # hover
+        elif self.__state == 2:
+            color = self.__hover_bg_color
+
+        self.shader.uniform_float("color", color)
 
     def draw_text(self, area_height):
         blf.size(0, self.__text_size, 72)
