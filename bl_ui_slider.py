@@ -28,8 +28,6 @@ class BL_UI_Slider(BL_UI_Widget):
         self.__slider_height = 13
         self.__slider_offset_y = 3
 
-    
-    # Will be supported in the next version
     def set_text_color(self, color):
         self.text_color = color
             
