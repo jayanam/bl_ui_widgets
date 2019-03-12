@@ -20,15 +20,15 @@ class DP_OT_draw_operator(BL_UI_OT_draw_operator):
         
         super().__init__()
             
-        self.panel = BL_UI_Drag_Panel(100, 400, 300, 150)
-        self.panel.set_bg_color((0.8, 0.8, 0.8, 0.4))
+        self.panel = BL_UI_Drag_Panel(100, 400, 300, 200)
+        self.panel.set_bg_color((0.2, 0.2, 0.2, 0.9))
 
         self.label = BL_UI_Label(20, 10, 40, 15)
         self.label.set_text("Size:")
         self.label.set_text_size(14)
-        self.label.set_text_color((0.2, 0.2, 1.0, 1.0))
+        self.label.set_text_color((0.2, 0.9, 0.9, 1.0))
 
-        self.slider = BL_UI_Slider(20, 50, 170, 30)
+        self.slider = BL_UI_Slider(20, 50, 260, 30)
         self.slider.set_color((0.2, 0.8, 0.8, 0.8))
         self.slider.set_hover_color((0.2, 0.9, 0.9, 1.0))
         self.slider.set_min(1.0)
@@ -54,8 +54,12 @@ class DP_OT_draw_operator(BL_UI_OT_draw_operator):
         #self.button2.set_image("//img/rotate.png")
         self.button2.set_image_size((24,24))
         self.button2.set_image_position((4,2))
+        
+        self.label_size = BL_UI_Label(20, 162, 40, 15)
+        self.label_size.set_text("Up/Down size:")
+        self.label_size.set_text_size(14)
 
-        self.up_down = BL_UI_Up_Down(220, 55)
+        self.up_down = BL_UI_Up_Down(120, 165)
         self.up_down.set_color((0.2, 0.8, 0.8, 0.8))
         self.up_down.set_hover_color((0.2, 0.9, 0.9, 1.0))
         self.up_down.set_min(1.0)
@@ -63,12 +67,12 @@ class DP_OT_draw_operator(BL_UI_OT_draw_operator):
         self.up_down.set_value(3.0)
         self.up_down.set_decimals(0)
         self.up_down.set_value_change(self.on_up_down_value_change)
-
+        
 
     def on_invoke(self, context, event):
 
         # Add new widgets here (TODO: perhaps a better, more automated solution?)
-        widgets_panel = [self.label, self.button1, self.button2, self.slider, self.up_down]
+        widgets_panel = [self.label, self.label_size, self.button1, self.button2, self.slider, self.up_down]
         widgets =       [self.panel]
 
         widgets += widgets_panel
