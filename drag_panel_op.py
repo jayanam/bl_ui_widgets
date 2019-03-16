@@ -35,6 +35,7 @@ class DP_OT_draw_operator(BL_UI_OT_draw_operator):
         self.slider.max = 5.0
         self.slider.set_value(2.0)
         self.slider.decimals = 1
+        self.slider.show_min_max = True
         self.slider.set_value_change(self.on_slider_value_change)
         
         self.button1 = BL_UI_Button(20, 100, 120, 30)

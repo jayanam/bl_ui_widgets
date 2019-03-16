@@ -21,6 +21,8 @@ class BL_UI_Slider(BL_UI_Widget):
         self._text_size = 14
         self._decimals = 2
 
+        self._show_min_max = True
+
         self.__state = 0
         self.__is_drag = False
         self.__slider_pos = 0
@@ -93,6 +95,14 @@ class BL_UI_Slider(BL_UI_Widget):
     @decimals.setter
     def decimals(self, value):
         self._decimals = value
+
+    @property
+    def show_min_max(self):
+        return self._show_min_max
+
+    @show_min_max.setter
+    def show_min_max(self, value):
+        self._show_min_max = value
                 
     def draw(self):
 
@@ -135,24 +145,25 @@ class BL_UI_Slider(BL_UI_Widget):
         blf.draw(0, sValue)
 
         # Draw min and max
-        sMin = sFormat.format(self._min)
-        
-        size = blf.dimensions(0, sMin)
-                      
-        blf.position(0, self.x_screen - size[0] / 2.0, 
-                        area_height - self.height - self.y_screen, 0)
-        blf.draw(0, sMin)
+        if self._show_min_max:
+            sMin = sFormat.format(self._min)
+            
+            size = blf.dimensions(0, sMin)
+                        
+            blf.position(0, self.x_screen - size[0] / 2.0, 
+                            area_height - self.height - self.y_screen, 0)
+            blf.draw(0, sMin)
 
-        sMax = sFormat.format(self._max)
-        
-        size = blf.dimensions(0, sMax)
+            sMax = sFormat.format(self._max)
+            
+            size = blf.dimensions(0, sMax)
 
-        r, g, b, a = self._text_color
-        blf.color(0, r, g, b, a)
-                      
-        blf.position(0, self.x_screen + self.width - size[0] / 2.0, 
-                        area_height - self.height - self.y_screen, 0)
-        blf.draw(0, sMax)
+            r, g, b, a = self._text_color
+            blf.color(0, r, g, b, a)
+                        
+            blf.position(0, self.x_screen + self.width - size[0] / 2.0, 
+                            area_height - self.height - self.y_screen, 0)
+            blf.draw(0, sMax)
 
 
     def update_slider(self):
