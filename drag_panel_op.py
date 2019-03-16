@@ -21,54 +21,54 @@ class DP_OT_draw_operator(BL_UI_OT_draw_operator):
         super().__init__()
             
         self.panel = BL_UI_Drag_Panel(100, 400, 300, 200)
-        self.panel.set_bg_color((0.2, 0.2, 0.2, 0.9))
+        self.panel.bg_color = (0.2, 0.2, 0.2, 0.9)
 
         self.label = BL_UI_Label(20, 10, 40, 15)
-        self.label.set_text("Size:")
-        self.label.set_text_size(14)
-        self.label.set_text_color((0.2, 0.9, 0.9, 1.0))
+        self.label.text = "Size:"
+        self.label.text_size = 14
+        self.label.text_color = (0.2, 0.9, 0.9, 1.0)
 
         self.slider = BL_UI_Slider(20, 50, 260, 30)
-        self.slider.set_color((0.2, 0.8, 0.8, 0.8))
-        self.slider.set_hover_color((0.2, 0.9, 0.9, 1.0))
-        self.slider.set_min(1.0)
-        self.slider.set_max(5.0)
+        self.slider.color= (0.2, 0.8, 0.8, 0.8)
+        self.slider.hover_color = (0.2, 0.9, 0.9, 1.0)
+        self.slider.min = 1.0
+        self.slider.max = 5.0
         self.slider.set_value(2.0)
-        self.slider.set_decimals(1)
+        self.slider.decimals = 1
         self.slider.set_value_change(self.on_slider_value_change)
         
         self.button1 = BL_UI_Button(20, 100, 120, 30)
-        self.button1.set_bg_color((0.2, 0.8, 0.8, 0.8))
-        self.button1.set_hover_bg_color((0.2, 0.9, 0.9, 1.0))
-        self.button1.set_mouse_down(self.button1_press)
-        self.button1.set_text("Scale")
+        self.button1.bg_color = (0.2, 0.8, 0.8, 0.8)
+        self.button1.hover_bg_color = (0.2, 0.9, 0.9, 1.0)
+        self.button1.text = "Scale"
         #self.button1.set_image("//img/scale.png")
         self.button1.set_image_size((24,24))
         self.button1.set_image_position((4,2))
+        self.button1.set_mouse_down(self.button1_press)
          
         self.button2 = BL_UI_Button(160, 100, 120, 30)
-        self.button2.set_bg_color((0.2, 0.8, 0.8, 0.8))
-        self.button2.set_hover_bg_color((0.2, 0.9, 0.9, 1.0))
-        self.button2.set_mouse_down(self.button2_press)
-        self.button2.set_text("Rotate")
+        self.button2.bg_color = (0.2, 0.8, 0.8, 0.8)
+        self.button2.hover_bg_color = (0.2, 0.9, 0.9, 1.0)
+        self.button2.text = "Rotate"
         #self.button2.set_image("//img/rotate.png")
         self.button2.set_image_size((24,24))
         self.button2.set_image_position((4,2))
-        
+        self.button2.set_mouse_down(self.button2_press)
+
         self.label_size = BL_UI_Label(20, 162, 40, 15)
-        self.label_size.set_text("Up/Down size:")
-        self.label_size.set_text_size(14)
+        self.label_size.text = "Up/Down size:"
+        self.label_size.text_size = 14
 
         self.up_down = BL_UI_Up_Down(120, 165)
-        self.up_down.set_color((0.2, 0.8, 0.8, 0.8))
-        self.up_down.set_hover_color((0.2, 0.9, 0.9, 1.0))
-        self.up_down.set_min(1.0)
-        self.up_down.set_max(5.0)
+        self.up_down.color = (0.2, 0.8, 0.8, 0.8)
+        self.up_down.hover_color = (0.2, 0.9, 0.9, 1.0)
+        self.up_down.min = 1.0
+        self.up_down.max = 5.0
+        self.up_down.decimals = 0
+
         self.up_down.set_value(3.0)
-        self.up_down.set_decimals(0)
         self.up_down.set_value_change(self.on_up_down_value_change)
         
-
     def on_invoke(self, context, event):
 
         # Add new widgets here (TODO: perhaps a better, more automated solution?)

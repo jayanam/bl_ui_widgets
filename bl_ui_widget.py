@@ -12,7 +12,7 @@ class BL_UI_Widget:
         self.y_screen = y
         self.width = width
         self.height = height
-        self.bg_color = (0.8, 0.8, 0.8, 1.0)
+        self._bg_color = (0.8, 0.8, 0.8, 1.0)
         self.context = None
 
     def set_location(self, x, y):
@@ -21,13 +21,18 @@ class BL_UI_Widget:
         self.x_screen = x
         self.y_screen = y
         self.update(x,y)
-                
-    def set_bg_color(self, color):
-        self.bg_color = color
-		    
+
+    @property
+    def bg_color(self):
+        return self._bg_color
+
+    @bg_color.setter
+    def bg_color(self, value):
+        self._bg_color = value
+                		    
     def draw(self):
         self.shader.bind()
-        self.shader.uniform_float("color", self.bg_color)
+        self.shader.uniform_float("color", self._bg_color)
         
         bgl.glEnable(bgl.GL_BLEND)
         self.batch_panel.draw(self.shader) 
