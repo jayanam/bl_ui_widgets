@@ -13,6 +13,7 @@ class BL_UI_Widget:
         self.width = width
         self.height = height
         self._bg_color = (0.8, 0.8, 0.8, 1.0)
+        self._tag = None
         self.context = None
 
     def set_location(self, x, y):
@@ -29,6 +30,14 @@ class BL_UI_Widget:
     @bg_color.setter
     def bg_color(self, value):
         self._bg_color = value
+
+    @property
+    def tag(self):
+        return self._tag
+
+    @tag.setter
+    def tag(self, value):
+        self._tag = value
                 		    
     def draw(self):
         self.shader.bind()
