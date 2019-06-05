@@ -23,7 +23,7 @@ class DP_OT_draw_operator(BL_UI_OT_draw_operator):
         self.panel = BL_UI_Drag_Panel(100, 400, 300, 200)
         self.panel.bg_color = (0.2, 0.2, 0.2, 0.9)
 
-        self.label = BL_UI_Label(20, 10, 40, 15)
+        self.label = BL_UI_Label(20, 10, 100, 15)
         self.label.text = "Size:"
         self.label.text_size = 14
         self.label.text_color = (0.2, 0.9, 0.9, 1.0)

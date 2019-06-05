@@ -2,7 +2,7 @@ bl_info = {
     "name": "BL UI Widgets",
     "description": "UI Widgets to draw in the 3D view",
     "author": "Jayanam",
-    "version": (0, 5, 0, 2),
+    "version": (0, 5, 0, 3),
     "blender": (2, 80, 0),
     "location": "View3D",
     "category": "Object"}
