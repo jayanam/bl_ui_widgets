@@ -21,7 +21,7 @@ class DP_OT_draw_operator(BL_UI_OT_draw_operator):
         
         super().__init__()
             
-        self.panel = BL_UI_Drag_Panel(100, 300, 300, 250)
+        self.panel = BL_UI_Drag_Panel(100, 300, 300, 290)
         self.panel.bg_color = (0.2, 0.2, 0.2, 0.9)
 
         self.label = BL_UI_Label(20, 10, 100, 15)
@@ -77,11 +77,22 @@ class DP_OT_draw_operator(BL_UI_OT_draw_operator):
         self.chb_visibility.text_color = (0.2, 0.9, 0.9, 1.0)
         self.chb_visibility.is_checked = True
         self.chb_visibility.set_state_changed(self.on_chb_visibility_state_change)
+
+        self.chb_1 = BL_UI_Checkbox(20, 235, 100, 15)
+        self.chb_1.text = "Checkbox 2"
+        self.chb_1.text_size = 14
+        self.chb_1.text_color = (0.2, 0.9, 0.9, 1.0)
+
+        self.chb_2 = BL_UI_Checkbox(20, 260, 100, 15)
+        self.chb_2.text = "Checkbox 3"
+        self.chb_2.text_size = 14
+        self.chb_2.text_color = (0.2, 0.9, 0.9, 1.0)
+
         
     def on_invoke(self, context, event):
 
         # Add new widgets here (TODO: perhaps a better, more automated solution?)
-        widgets_panel = [self.label, self.label_size, self.button1, self.button2, self.slider, self.up_down, self.chb_visibility]
+        widgets_panel = [self.label, self.label_size, self.button1, self.button2, self.slider, self.up_down, self.chb_visibility, self.chb_1, self.chb_2]
         widgets =       [self.panel]
 
         widgets += widgets_panel
