@@ -52,7 +52,7 @@ class BL_UI_Checkbox(BL_UI_Widget):
             self.__state = value
 
             try:
-                self.state_changed_func(self)
+                self.state_changed_func(self, self.__state)
             except:
                 pass
 
@@ -146,7 +146,7 @@ class BL_UI_Checkbox(BL_UI_Widget):
         if self.is_in_rect(x,y):
             self.__state = not self.__state
             try:
-                self.state_changed_func(self)
+                self.state_changed_func(self, self.__state)
             except:
                 pass
                 
