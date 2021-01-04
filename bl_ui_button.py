@@ -166,8 +166,8 @@ class BL_UI_Button(BL_UI_Widget):
             self.__state = 1
             try:
                 self.mouse_down_func(self)
-            except:
-                pass
+            except Exception as e:
+                print(e)
                 
             return True
         

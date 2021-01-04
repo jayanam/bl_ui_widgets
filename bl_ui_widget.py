@@ -1,5 +1,6 @@
 import gpu
 import bgl
+import bpy
 
 from gpu_extras.batch import batch_for_shader
 
@@ -17,6 +18,7 @@ class BL_UI_Widget:
         self.context = None
         self.__inrect = False
         self._mouse_down = False
+        self.enabled = True
 
     def set_location(self, x, y):
         self.x = x
@@ -112,8 +114,10 @@ class BL_UI_Widget:
     def get_input_keys(self)                :
         return []
 
+
+
     def get_area_height(self):
-        return self.context.area.height    
+        return self.context.area.height
 
     def is_in_rect(self, x, y):
         area_height = self.get_area_height()
@@ -136,11 +140,50 @@ class BL_UI_Widget:
     def mouse_up(self, x, y):
         pass
 
+    def set_mouse_enter(self, mouse_enter_func):
+        self.mouse_enter_func = mouse_enter_func
+
+    def mouse_enter_func(self):
+        pass
+
     def mouse_enter(self, event, x, y):
+        try:
+            self.mouse_enter_func(self)
+        except Exception as e:
+            print(e)
+
+        return True
+
+    def set_mouse_exit(self, mouse_exit_func):
+        self.mouse_exit_func = mouse_exit_func
+
+    def mouse_exit_func(self):
         pass
 
     def mouse_exit(self, event, x, y):
+        try:
+            self.mouse_exit_func(self)
+        except Exception as e:
+            print(e)
+
+        return True
+
+    def set_mouse_move(self, mouse_move_func):
+        self.mouse_move_func = mouse_move_func
+
+    def mouse_move_func(self):
         pass
 
-    def mouse_move(self, x, y):
-        pass
+    def mouse_move(self, event, x, y):
+        if self.is_in_rect(x, y):
+            try:
+                self.mouse_move_func(self)
+            except Exception as e:
+                print(e)
+        return True
+
+    def enable(self):
+        self.enabled = True
+
+    def disable(self):
+        self.enabled = False

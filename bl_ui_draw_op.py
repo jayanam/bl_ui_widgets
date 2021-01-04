@@ -53,13 +53,20 @@ class BL_UI_OT_draw_operator(Operator):
     def handle_widget_events(self, event):
         result = False
         for widget in self.widgets:
-            if widget.handle_event(event):
+            if widget.enabled and widget.handle_event(event):
                 result = True
         return result
           
     def modal(self, context, event):
 
         if self._finished:
+            return {'FINISHED'}
+
+        # this ends the UI when context has changed
+        #  - by maximizing area
+        #  - by switching viewport layout.
+        if not context.area:
+            self.finish()
             return {'FINISHED'}
 
         if context.area:
@@ -80,4 +87,5 @@ class BL_UI_OT_draw_operator(Operator):
 	# Draw handler to paint onto the screen
     def draw_callback_px(self, op, context):
         for widget in self.widgets:
-            widget.draw()
+            if widget.enabled:
+                widget.draw()
