@@ -22,12 +22,15 @@ class BL_UI_Textbox(BL_UI_Widget):
 
         self._carret_pos = 0
 
+        self._input_keys = ['ESC', 'RET', 'BACK_SPACE', 'HOME', 'END', 'LEFT_ARROW', 'RIGHT_ARROW', 'DEL']
+
         self.text = ""
         self._label = ""
         self._text_size = 12
         self._textpos = [x, y]
         self._max_input_chars = 100
         self._label_width = 0
+        self._is_numeric = False
 
     @property
     def carret_color(self):
@@ -87,6 +90,14 @@ class BL_UI_Textbox(BL_UI_Widget):
     def has_label(self):
         return self._label != ""
 
+    @property
+    def is_numeric(self):
+        return self._is_numeric
+
+    @is_numeric.setter
+    def is_numeric(self, value):
+        self._is_numeric = value   
+
     def update(self, x, y):
         super().update(x, y)
 
@@ -124,12 +135,6 @@ class BL_UI_Textbox(BL_UI_Widget):
                     (lb_x + self._label_width, y_screen_flip - self.height))
                     
         self.batch_label_bg = batch_for_shader(self.shader, 'TRIS', {"pos" : vertices_label_bg}, indices=indices)
-
-
-
-    # def set_carret_pos(self, mouse_x):
-    #     self._carret_pos = 0
-    #     self.update_carret()
 
     def get_carret_pos_px(self):
         size_all = blf.dimensions(0, self._text)
@@ -202,17 +207,24 @@ class BL_UI_Textbox(BL_UI_Widget):
         blf.draw(0, self._text)
 
     def get_input_keys(self):
-        return ['ESC', 'RET', 'BACK_SPACE', 'HOME', 'END', 'LEFT_ARROW', 'RIGHT_ARROW', 'DEL']
+        return self._input_keys
 
     def text_input(self, event):
 
         index = self._carret_pos
 
         if event.ascii != '' and len(self._text) < self.max_input_chars:
-            self._text = self._text[:index] + event.ascii + self._text[index:]
+            value = self._text[:index] + event.ascii + self._text[index:]
+            if self._is_numeric and not (event.ascii.isnumeric() or event.ascii in ['.', ',']):
+                return False
+                
+            self._text = value
             self._carret_pos += 1
         elif event.type == 'BACK_SPACE':
-            if self._carret_pos > 0:
+            if event.ctrl:
+                self._text = ""
+                self._carret_pos = 0
+            elif self._carret_pos > 0:
                 self._text = self._text[:index-1] + self._text[index:]
                 self._carret_pos -= 1
 
