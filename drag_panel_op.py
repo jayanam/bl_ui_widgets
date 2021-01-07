@@ -43,8 +43,8 @@ class DP_OT_draw_operator(BL_UI_OT_draw_operator):
         self.button1.bg_color = (0.2, 0.8, 0.8, 0.8)
         self.button1.hover_bg_color = (0.2, 0.9, 0.9, 1.0)
         self.button1.text = "Scale"
-        #self.button1.set_image("//img/scale.png")
-        self.button1.set_image_size((24,24))
+        self.button1.set_image("//img/scale_24.png")
+        # self.button1.set_image_size((24,24))
         self.button1.set_image_position((4,2))
         self.button1.set_mouse_down(self.button1_press)
          

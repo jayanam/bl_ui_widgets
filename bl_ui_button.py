@@ -89,7 +89,7 @@ class BL_UI_Button(BL_UI_Widget):
                     (self.x_screen + off_x, y_screen_flip - off_y), 
                     (self.x_screen + off_x, y_screen_flip - sy - off_y), 
                     (self.x_screen + off_x + sx, y_screen_flip - sy - off_y),
-                    (self.x_screen + off_x + sx, y_screen_flip - off_x))
+                    (self.x_screen + off_x + sx, y_screen_flip - off_y))
         
         self.shader_img = gpu.shader.from_builtin('2D_IMAGE')
         self.batch_img = batch_for_shader(self.shader_img, 'TRI_FAN', 
