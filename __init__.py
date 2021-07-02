@@ -13,12 +13,18 @@ import bpy
 from bpy.props import *
 
 from . drag_panel_op import DP_OT_draw_operator
-
+from . neo_buts_op import DP_OT_draw_operator_fork_test
 addon_keymaps = []
 
+def menu_func_neo_butt_1(self, context):
+    layout = self.layout
+    oper = self.layout.operator("object.draw_operator_fork_test", text="NEO_Buttons", icon="MONKEY")
+    
 def register():
     
     bpy.utils.register_class(DP_OT_draw_operator)
+    bpy.utils.register_class(DP_OT_draw_operator_fork_test)
+    bpy.types.VIEW3D_MT_view.append(menu_func_neo_butt_1)
     kcfg = bpy.context.window_manager.keyconfigs.addon
     if kcfg:
         km = kcfg.keymaps.new(name='3D View', space_type='VIEW_3D')
@@ -31,7 +37,7 @@ def unregister():
     for km, kmi in addon_keymaps:
         km.keymap_items.remove(kmi)
     addon_keymaps.clear()
-   
+    bpy.utils.unregister_class(DP_OT_draw_operator_fork_test)
     bpy.utils.unregister_class(DP_OT_draw_operator)
     
 if __name__ == "__main__":
