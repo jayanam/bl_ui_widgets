@@ -1,5 +1,6 @@
 import gpu
 import bgl
+import bpy
 
 from gpu_extras.batch import batch_for_shader
 
@@ -51,15 +52,19 @@ class BL_UI_Widget:
         self._tag = value
                 		    
     def draw(self):
-        if not self.visible:
+        if bpy.context != None and bpy.context == bpy.context:
+            if not self.visible:
+                return
+                
+            self.shader.bind()
+            self.shader.uniform_float("color", self._bg_color)
+            
+            bgl.glEnable(bgl.GL_BLEND)
+            self.batch_panel.draw(self.shader) 
+            bgl.glDisable(bgl.GL_BLEND)
+        else:
             return
             
-        self.shader.bind()
-        self.shader.uniform_float("color", self._bg_color)
-        
-        bgl.glEnable(bgl.GL_BLEND)
-        self.batch_panel.draw(self.shader) 
-        bgl.glDisable(bgl.GL_BLEND)
 
     def init(self, context):
         self.context = context
@@ -125,18 +130,23 @@ class BL_UI_Widget:
         return []
 
     def get_area_height(self):
-        return self.context.area.height    
+        if self.context.area != None:
+            return self.context.area.height
+        else:
+            return 10
 
     def is_in_rect(self, x, y):
-        area_height = self.get_area_height()
+	#Add check if the user had change workspace or layout
+        if bpy.context != None and bpy.context == self.context and self.context.area !=None:
+            area_height = self.get_area_height()
 
-        widget_y = area_height - self.y_screen
-        if (
-            (self.x_screen <= x <= (self.x_screen + self.width)) and 
-            (widget_y >= y >= (widget_y - self.height))
-            ):
-            return True
-           
+            widget_y = area_height - self.y_screen
+            if (
+                (self.x_screen <= x <= (self.x_screen + self.width)) and 
+                (widget_y >= y >= (widget_y - self.height))
+                ):
+                return True
+            return False
         return False      
 
     def text_input(self, event):       
